@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://italiansite.example.com/login.html">
+    <meta property="og:url" content="https://italiansite.example.com/login.html">
+    <meta property="og:title" content="ItalianSite — Вход и регистрация">
+    <title>Вход и регистрация</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-switch">
+                <button id="tab-login" class="active" type="button">Вход</button>
+                <button id="tab-phone-login" type="button">Вход по телефону</button>
+                <button id="tab-register" type="button">Регистрация</button>
+                <button id="tab-staff-login" type="button">Вход персонала</button>
+                <button id="tab-staff-register" type="button">Регистрация персонала</button>
+            </div>
+            <div class="auth-notice">Для входа можно использовать логин <strong>demo</strong> и пароль <strong>demo123</strong>. Для персонала — <strong>staff</strong> / <strong>staff123</strong>, код доступа <strong>staff2026</strong>.</div>
+            <form id="login-form" class="auth-form">
+                <h1>Вход</h1>
+                <input id="login-user" type="text" placeholder="Логин или email" required>
+                <div class="password-wrapper">
+                    <input id="login-password" type="password" placeholder="Пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <button id="login-submit" class="header-button" type="submit">Войти</button>
+            </form>
+            <form id="phone-login-form" class="auth-form hidden">
+                <h1>Вход по телефону</h1>
+                <input id="phone-login-number" type="tel" placeholder="Телефон" required>
+                <div class="password-wrapper">
+                    <input id="phone-login-password" type="password" placeholder="Пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('phone-login-password')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <button id="phone-login-submit" class="header-button" type="submit">Войти</button>
+            </form>
+            <form id="register-form" class="auth-form hidden">
+                <h1>Регистрация клиента</h1>
+                <input id="reg-login" type="text" placeholder="Логин" required>
+                <input id="reg-email" type="email" placeholder="Email" required>
+                <input id="reg-phone" type="tel" placeholder="Телефон" required>
+                <div class="password-wrapper">
+                    <input id="reg-password" type="password" placeholder="Пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('reg-password')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <div class="password-wrapper">
+                    <input id="reg-password2" type="password" placeholder="Повторите пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('reg-password2')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <button id="register-submit" class="header-button" type="submit">Зарегистрироваться</button>
+            </form>
+            <form id="staff-login-form" class="auth-form hidden">
+                <h1>Вход персонала</h1>
+                <input id="staff-login-user" type="text" placeholder="Логин или email" required>
+                <div class="password-wrapper">
+                    <input id="staff-login-password" type="password" placeholder="Пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('staff-login-password')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <input id="staff-login-code" type="text" placeholder="Код доступа персонала" required>
+                <button id="staff-login-submit" class="header-button" type="submit">Войти как персонал</button>
+            </form>
+            <form id="staff-register-form" class="auth-form hidden">
+                <h1>Регистрация персонала</h1>
+                <input id="staff-reg-login" type="text" placeholder="Логин сотрудника" required>
+                <input id="staff-reg-email" type="email" placeholder="Email сотрудника" required>
+                <div class="password-wrapper">
+                    <input id="staff-reg-password" type="password" placeholder="Пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('staff-reg-password')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <div class="password-wrapper">
+                    <input id="staff-reg-password2" type="password" placeholder="Повторите пароль" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('staff-reg-password2')">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <input id="staff-reg-code" type="text" placeholder="Код доступа персонала" required>
+                <button id="staff-register-submit" class="header-button" type="submit">Зарегистрировать сотрудника</button>
+            </form>
+            <div class="auth-message" id="auth-message">Введите логин и пароль, чтобы войти в систему.</div>
+            <div class="auth-action-wrap">
+                <button id="auth-action-button" class="auth-link-button" type="button">Забыли пароль?</button>
+            </div>
+            <button id="guest-access" class="header-button guest-access-btn" type="button">Продолжить как гость</button>
+        </div>
+    </div>
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = event.target.closest('.toggle-password');
+            const eyeIcon = button.querySelector('.eye-icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.textContent = '👁️‍🗨️';
+            } else {
+                input.type = 'password';
+                eyeIcon.textContent = '👁️';
+            }
+        }
+
+        const tabLogin = document.getElementById('tab-login');
+        const tabPhoneLogin = document.getElementById('tab-phone-login');
+        const tabRegister = document.getElementById('tab-register');
+        const tabStaffLogin = document.getElementById('tab-staff-login');
+        const tabStaffRegister = document.getElementById('tab-staff-register');
+        const loginForm = document.getElementById('login-form');
+        const phoneLoginForm = document.getElementById('phone-login-form');
+        const registerForm = document.getElementById('register-form');
+        const staffLoginForm = document.getElementById('staff-login-form');
+        const staffRegisterForm = document.getElementById('staff-register-form');
+        const message = document.getElementById('auth-message');
+        const authActionButton = document.getElementById('auth-action-button');
+
+        function updateAuthAction(tab) {
+            if (tab === 'login' || tab === 'phone-login') {
+                authActionButton.textContent = 'Забыли пароль?';
+                authActionButton.classList.remove('hidden');
+                authActionButton.onclick = () => {
+                    alert('Для восстановления пароля обратитесь в службу поддержки или воспользуйтесь формой восстановления на сайте.');
+                };
+            } else if (tab === 'register') {
+                authActionButton.textContent = 'Не зарегистрированы?';
+                authActionButton.classList.remove('hidden');
+                authActionButton.onclick = () => {
+                    alert('Заполните форму регистрации, чтобы создать новый аккаунт.');
+                };
+            } else {
+                authActionButton.classList.add('hidden');
+                authActionButton.onclick = null;
+            }
+        }
+
+        function switchTab(tab) {
+            const isLogin = tab === 'login';
+            const isPhoneLogin = tab === 'phone-login';
+            const isRegister = tab === 'register';
+            const isStaffLogin = tab === 'staff-login';
+            const isStaffRegister = tab === 'staff-register';
+
+            loginForm.classList.toggle('hidden', !isLogin);
+            phoneLoginForm.classList.toggle('hidden', !isPhoneLogin);
+            registerForm.classList.toggle('hidden', !isRegister);
+            staffLoginForm.classList.toggle('hidden', !isStaffLogin);
+            staffRegisterForm.classList.toggle('hidden', !isStaffRegister);
+
+            tabLogin.classList.toggle('active', isLogin);
+            tabPhoneLogin.classList.toggle('active', isPhoneLogin);
+            tabRegister.classList.toggle('active', isRegister);
+            tabStaffLogin.classList.toggle('active', isStaffLogin);
+            tabStaffRegister.classList.toggle('active', isStaffRegister);
+
+            if (isLogin) {
+                message.textContent = 'Если у вас нет аккаунта, перейдите на вкладку регистрация.';
+            } else if (isPhoneLogin) {
+                message.textContent = 'Введите телефон и пароль для быстрого входа.';
+            } else if (isRegister) {
+                message.textContent = 'Заполните форму регистрации, чтобы создать новый аккаунт.';
+            } else if (isStaffLogin) {
+                message.textContent = 'Введите логин, пароль и код доступа для входа в панель персонала.';
+            } else {
+                message.textContent = 'Заполните форму регистрации персонала только для сотрудников ресторана.';
+            }
+            updateAuthAction(tab);
+        }
+
+        function normalizePhone(value) {
+            return (value || '').replace(/\D/g, '');
+        }
+
+        function showAuthError(text) {
+            window.location.href = `login-error.html?msg=${encodeURIComponent(text)}`;
+        }
+
+        function loginUser(user) {
+            setCurrentUser({ login: user.login, email: user.email, role: user.role, phone: user.phone });
+            message.textContent = `Добро пожаловать, ${user.login}! Переходим на сайт...`;
+            setTimeout(() => window.location.href = 'indexation.html', 500);
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const userValue = document.getElementById('login-user').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            if (!userValue || !password) {
+                message.textContent = 'Введите логин или email и пароль.';
+                return;
+            }
+            const users = getUsers();
+            const user = users.find(u => (u.role !== 'staff') && (u.login.toLowerCase() === userValue || u.email.toLowerCase() === userValue) && u.password === password);
+            if (!user) {
+                showAuthError('Пользователь не найден или пароль неверный.');
+                return;
+            }
+            loginUser(user);
+        });
+
+        document.getElementById('phone-login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const phone = normalizePhone(document.getElementById('phone-login-number').value);
+            const password = document.getElementById('phone-login-password').value;
+            if (!phone || !password) {
+                message.textContent = 'Введите телефон и пароль.';
+                return;
+            }
+            const users = getUsers();
+            const user = users.find(u => (u.role !== 'staff') && normalizePhone(u.phone) === phone && u.password === password);
+            if (!user) {
+                showAuthError('Пользователь не найден или пароль неверный.');
+                return;
+            }
+            loginUser(user);
+        });
+
+        tabLogin.addEventListener('click', () => switchTab('login'));
+        tabPhoneLogin.addEventListener('click', () => switchTab('phone-login'));
+        tabRegister.addEventListener('click', () => switchTab('register'));
+        tabStaffLogin.addEventListener('click', () => switchTab('staff-login'));
+        tabStaffRegister.addEventListener('click', () => switchTab('staff-register'));
+        updateAuthAction('login');
+
+        const defaultUser = {
+            login: 'demo',
+            email: 'demo@italiansite.ru',
+            password: 'demo123',
+            role: 'client'
+        };
+
+        const defaultStaff = {
+            login: 'staff',
+            email: 'staff@italiansite.ru',
+            password: 'staff123',
+            role: 'staff'
+        };
+
+        function getUsers() {
+            try {
+                return JSON.parse(localStorage.getItem('users') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        function setCurrentUser(user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+
+        (function initDefaultUsers() {
+            const users = getUsers();
+            if (!users.length) {
+                users.push(defaultUser, defaultStaff);
+                saveUsers(users);
+                message.textContent = 'Для входа: логин demo / пароль demo123; для персонала: staff / staff123.';
+            }
+        })();
+
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const login = document.getElementById('reg-login').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const phone = normalizePhone(document.getElementById('reg-phone').value);
+            const password = document.getElementById('reg-password').value;
+            const password2 = document.getElementById('reg-password2').value;
+
+            if (!login || !email || !phone || !password) {
+                message.textContent = 'Заполните все поля регистрации.';
+                return;
+            }
+            if (password !== password2) {
+                message.textContent = 'Пароли не совпадают. Попробуйте ещё раз.';
+                return;
+            }
+
+            const users = getUsers();
+            const exists = users.some(u => u.login === login || u.email === email || u.phone === phone);
+            if (exists) {
+                message.textContent = 'Пользователь с таким логином, email или телефоном уже существует.';
+                return;
+            }
+
+            const newUser = { login, email, phone, password, role: 'client' };
+            users.push(newUser);
+            saveUsers(users);
+            setCurrentUser({ login: newUser.login, email: newUser.email, role: newUser.role });
+            message.textContent = 'Регистрация успешна! Переходим на сайт...';
+            this.reset();
+            setTimeout(() => window.location.href = 'indexation.html', 500);
+        });
+
+        document.getElementById('staff-login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const userValue = document.getElementById('staff-login-user').value.trim().toLowerCase();
+            const password = document.getElementById('staff-login-password').value;
+            const staffCode = document.getElementById('staff-login-code').value.trim();
+
+            if (!userValue || !password || !staffCode) {
+                message.textContent = 'Заполните все поля входа персонала.';
+                return;
+            }
+            if (staffCode !== 'staff2026') {
+                message.textContent = 'Неверный код доступа персонала.';
+                return;
+            }
+
+            const users = getUsers();
+            const user = users.find(u => (u.login.toLowerCase() === userValue || u.email.toLowerCase() === userValue) && u.password === password && u.role === 'staff');
+            if (!user) {
+                message.textContent = 'Неверный логин, пароль или права доступа персонала.';
+                return;
+            }
+
+            setCurrentUser({ login: user.login, email: user.email, role: user.role });
+            message.textContent = 'Вы успешно вошли как персонал. Переходим в административную панель...';
+            this.reset();
+            setTimeout(() => window.location.href = 'staff.html', 500);
+        });
+
+        document.getElementById('staff-register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const userValue = document.getElementById('staff-reg-login').value.trim().toLowerCase();
+            const password = document.getElementById('staff-reg-password').value;
+
+            if (!userValue || !password) {
+                message.textContent = 'Введите логин и пароль.';
+                return;
+            }
+
+            const users = getUsers();
+            const user = users.find(u => (u.login.toLowerCase() === userValue || u.email.toLowerCase() === userValue) && u.password === password);
+            if (!user) {
+                message.textContent = 'Неверный логин или пароль. Проверьте данные или зарегистрируйтесь.';
+                return;
+            }
+
+            setCurrentUser({ login: user.login, email: user.email, role: user.role || 'client' });
+            message.textContent = 'Вы успешно вошли как ' + user.login + '. Переходим на сайт...';
+            this.reset();
+            setTimeout(() => window.location.href = 'indexation.html', 500);
+        });
+
+        document.getElementById('guest-access').addEventListener('click', function () {
+            window.location.href = 'indexation.html';
+        });
+    </script>
+</body>
+</html>

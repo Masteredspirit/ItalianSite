@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка входа — ItalianSite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1>Ошибка входа</h1>
+            <div class="auth-error-content" style="box-shadow:none; background:#111; margin-top:16px; padding:24px;">
+                <p id="login-error-text">Произошла ошибка при входе. Пожалуйста, вернитесь на страницу входа и попробуйте ещё раз.</p>
+                <button id="return-btn" class="header-button" type="button">Вернуться на страницу входа</button>
+                <p style="margin-top:16px; color:#ccc; font-size:14px;">Автоматический переход через 10 секунд.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name) || '';
+        }
+        const message = getQueryParam('msg');
+        const errorText = document.getElementById('login-error-text');
+        errorText.textContent = message ? message : 'Произошла ошибка при входе. Пожалуйста, вернитесь на страницу входа и попробуйте ещё раз.';
+        document.getElementById('return-btn').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 10000);
+    </script>
+</body>
+</html>

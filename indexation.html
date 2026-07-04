@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://italiansite.example.com">
+    <meta property="og:url" content="https://italiansite.example.com">
+    <meta property="og:title" content="ItalianSite - Итальянский ресторан">
+    <link rel='stylesheet' href='style.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Ресторан</title>
+</head>
+<body>
+
+<div class='header' id='home'>
+    <div class='container'>
+        <div class='header-line'>
+            <div class='header-left'>
+                <div class='header-logo'>
+                    <img src="logo.png" alt="Логотип ресторана">
+                </div>
+
+                <button class="mobile-menu-toggle" type="button" aria-label="Открыть меню">☰</button>
+
+                <div class='nav'>
+                    <a class='nav-item' href="#home">ГЛАВНАЯ</a>
+                    <div class='nav-dropdown'>
+                        <a class='nav-item nav-link' href="#menu">МЕНЮ</a>
+                        <div class='menu-hover-card'>
+                            <a class='menu-hover-link' data-category='food' href="#menu">Основные Блюда</a>
+                            <a class='menu-hover-link' data-category='drinks' href="#menu">Напитки</a>
+                            <a class='menu-hover-link' data-category='snacks' href="#menu">Закуски</a>
+                        </div>
+                    </div>
+                    <a class='nav-item' href="#about">О НАС</a>
+                    <a class='nav-item staff-link' href="staff.html">ПЕРСОНАЛ</a>
+                </div>
+            </div>
+
+            <div class='header-right'>
+                <div class='auth-btn' id="auth-section">
+                    <a class='button button-secondary' href='login.html'>ВОЙТИ / РЕГИСТРАЦИЯ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class='header-down'>
+
+            <div class='header-title'>
+                ДОБРО ПОЖАЛОВАТЬ В
+
+                <div class='header-subtitle'>
+                    НАШ РЕСТОРАН ИТАЛЬЯНСКОЙ КУХНИ
+                </div>
+
+                <div class='header-suptitle'>
+                    Лучшие блюда от наших шеф-поваров
+                </div>
+
+                <div class='header-btn'>
+                    <a href='#menu' class='header-button'>ПРОСМОТРЕТЬ МЕНЮ</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class='cards'>
+    <div class='container'>
+        <div class='cards-holder'>
+    <div class='card'>
+
+        <div class='card-image'>
+            <img class='card-img' src='card.png'>
+        </div>
+
+        <div class='card-title'>
+            Магическая атмосфера  <span>Италии</span>
+        </div>
+
+        <div class='card-desc'>
+            Погрузитесь в атмосферу Италии, наслаждаясь изысканными блюдами и уютной обстановкой нашего ресторана. 
+            Мы предлагаем вам уникальное сочетание традиционных итальянских рецептов и современного подхода к кулинарии, чтобы создать незабываемый опыт для каждого гостя.
+          </div>
+
+      </div>
+
+      <div class='card'>
+
+        <div class='card-image'>
+            <img class='card-img' src='card.png'>
+        </div>
+
+        <div class='card-title'>
+            Недорогое итальянское<span>Качество</span>
+        </div>
+
+        <div class='card-desc'>
+            Мы стараемся создасть и приятную остановку, и вкусные блюда, и при этом не завышать цены.
+            У нас вы можете насладиться итальянской кухней, не беспокоясь
+          </div>
+
+   </div>
+
+   <div class='card'>
+
+        <div class='card-image'>
+            <img class='card-img' src='card.png'>
+        </div>
+
+        <div class='card-title'>
+            Лучшее качество <span>Еды</span>
+        </div>
+
+        <div class='card-desc'>
+            У нас только проверенные продукты, которые мы тщательно отбираем для приготовления наших блюд.
+            Мы гарантируем, что каждое блюдо, которое вы заказываете, будет приготов
+          </div>
+      </div>
+</div>
+<div class='menu-section' id='menu'>
+    <div class='container'>
+        <div class='section-title'>Меню ресторана</div>
+        <div class='menu-intro'>Начните с закусок: здесь вы увидите список лёгких блюд с весом, составом, ценой и кнопкой добавления в корзину. Для остальных категорий доступны карточки с выбором порции.</div>
+        <div class='menu-filters'>
+            <button class='menu-filter' data-category='food' type='button'>Основные Блюда</button>
+            <button class='menu-filter' data-category='drinks' type='button'>Напитки</button>
+            <button class='menu-filter active' data-category='snacks' type='button'>Закуски</button>
+        </div>
+        <div class='menu-grid' id='menu-grid'></div>
+    </div>
+</div>
+
+<div class='history' id='about'>
+    <div class='container'>
+        <div class='history-holder'>
+            <div class='history-info'>
+                <div class='history-title'>О нас</div>
+                <div class='history-desc'>Наш ресторан был основан в 2010 году двумя дорогими друзьями: шеф-поваром Джованни Россо и ресторатором Еленой Бьянка. Они мечтали создать место, где настоящая итальянская кухня будет доступна в уютной атмосфере, а каждый гость почувствует себя как дома.</div>
+                <div class='history-desc'>История нашего заведения началась с семейных рецептов, которые передавались из поколения в поколение на юге Италии. Джованни вырос в небольшой трапезарии под Неаполем, а Елена привезла в ресторан нюансы гостеприимства и внимание к деталям.</div>
+                <div class='history-number'>
+                    <div class='number-item'>
+                        12 <span>лет опыта</span>
+                    </div>
+                    <div class='number-item'>
+                        1 200 <span>довольных гостей</span>
+                    </div>
+                    <div class='number-item'>
+                        85% <span>постоянных клиентов</span>
+                    </div>
+                </div>
+                <div class='history-extra'>
+                    <div class='history-item'><strong>2010</strong> — открытие ресторана с первой семейной пастой и томатным соусом, приготовленным по старинному итальянскому рецепту.</div>
+                    <div class='history-item'><strong>2014</strong> — расширение меню: дополнили его свежими морепродуктами, авторскими пиццами и фирменными десертами.</div>
+                    <div class='history-item'><strong>2020</strong> — мы усилили заботу о качестве: стали сотрудничать только с проверенными поставщиками и фермерами.</div>
+                </div>
+            </div>
+            <div class='history-images'>
+                <img class='images-1' src="history1.png" alt="Наш ресторан">
+                <img class='images-2' src="history2.png" alt="Команда шефов">
+                <img class='images-3' src="history3.png" alt="Интерьер ресторана">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='chefs-section'>
+    <div class='container'>
+        <div class='section-title'>Галерея шефов и отзывы</div>
+        <div class='chefs-grid'>
+            <div class='chef-card'>
+                <img src='chef1.png' alt='Джованни Россо'>
+                <div class='chef-name'>Джованни Россо</div>
+                <div class='chef-role'>Шеф-повар, мастер пасты</div>
+            </div>
+            <div class='chef-card'>
+                <img src='chef2.png' alt='Елена Бьянка'>
+                <div class='chef-name'>Елена Бьянка</div>
+                <div class='chef-role'>Куратор сервиса и десертов</div>
+            </div>
+            <div class='chef-card'>
+                <img src='chef3.png' alt='Матео Феррари'>
+                <div class='chef-name'>Матео Феррари</div>
+                <div class='chef-role'>Автор авторских пицц</div>
+            </div>
+        </div>
+        <div class='reviews-grid'>
+            <div class='review-card'>
+                <div class='review-text'>“Каждое блюдо здесь готовится с душой — прямо как в Италии. Атмосфера и сервис превосходны.”</div>
+                <div class='review-author'>Анна, постоянный гость</div>
+            </div>
+            <div class='review-card'>
+                <div class='review-text'>“Паста карбонара — одна из лучших, что я пробовал. Чувствуешь себя в уютном семейном ресторане.”</div>
+                <div class='review-author'>Сергей, деловой ужин</div>
+            </div>
+            <div class='review-card'>
+                <div class='review-text'>“Рекомендую каждому. Шефы внимательны к деталям, а сервис делает вечер по-настоящему праздничным.”</div>
+                <div class='review-author'>Марина, вечеринка</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='booking-section' id='booking'>
+    <div class='container booking-holder'>
+        <div class='booking-panel'>
+            <div class='section-title'>Закажите столик</div>
+            <div class='booking-text'>Выберите дату, время и количество гостей — мы подготовим для вас уютный столик в лучшем итальянском стиле.</div>
+            <form class='booking-form'>
+                <input type='text' name='name' placeholder='Ваше имя' required>
+                <input type='tel' name='phone' placeholder='Телефон' required>
+                <input type='date' name='date' required>
+                <input type='time' name='time' required>
+                <select name='guests' required>
+                    <option value=''>Количество гостей</option>
+                    <option value='2'>2 гостя</option>
+                    <option value='4'>4 гостя</option>
+                    <option value='6'>6 гостей</option>
+                    <option value='8'>8+ гостей</option>
+                </select>
+                <button class='header-button' type='submit'>ЗАБРОНИРОВАТЬ</button>
+            </form>
+        </div>
+        <div class='booking-map'>
+            <div class='map-title'>Мы на карте</div>
+            <iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2244.511873279333!2d37.617633776739645!3d55.75582618055314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414ab2d3c754e9d5%3A0x9e3ed0ea1e9061b4!2z0JrQsNC90L7RgdGC0YDRgtCw0YLQtdC90LjQvdGP!5e0!3m2!1sru!2sru!4v1710000000000!5m2!1sru!2sru' allowfullscreen='' loading='lazy'></iframe>
+        </div>
+    </div>
+</div>
+
+<div class='black-block'>
+    <div class='container'>
+
+        <div class='left'>
+            <div class='left-title'>
+                Забронируйте столик прямо сейчас
+            </div>
+
+            <div class='left-text'>
+                Хотите опробовать нашу итальянскую кухню? 
+                Не забудьте забронировать заранее!
+            </div>
+        </div>
+
+        <div class='right'>
+            <form class='black-block-form' action='#booking' method='get'>
+                <button class='right-btn' type='submit'>ЗАБРОНИРОВАТЬ СТОЛИК</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class='contact-section' id='contact'>
+    <div class='container'>
+        <div class='section-title'>Контакт и обратная связь</div>
+        <div class='contact-grid'>
+            <div class='contact-card'>
+                <div class='contact-card-title'>Наш адрес</div>
+                <p>г. Москва, ул. Итальянская, 12</p>
+                <p>Телефон: +999-87-19-87</p>
+                <p>Email: info@italiansite.ru</p>
+                <p>Режим работы: Пн–Вс 10:00–23:00</p>
+            </div>
+            <div class='feedback-card'>
+                <div class='contact-card-title'>Оставьте отзыв</div>
+                <form class='contact-form' onsubmit="event.preventDefault(); alert('Спасибо за отзыв! Мы обязательно его прочитаем.'); this.reset();">
+                    <input type='text' name='name' placeholder='Ваше имя' required>
+                    <input type='email' name='email' placeholder='Ваш email' required>
+                    <textarea name='message' placeholder='Ваш отзыв или вопрос' required></textarea>
+                    <button class='header-button' type='submit'>ОТПРАВИТЬ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='footer-bar'>
+    <div class='container footer-bar-inner'>
+        <div class='footer-phone'>
+            Звоните: <a href='tel:+999871987'>+999-87-19-87</a>
+        </div>
+        <div class='footer-social'>
+            <a class='social-link social-vk' href='https://vk.com' target='_blank' rel='noreferrer noopener' aria-label='VK'>VK</a>
+            <a class='social-link social-twitter' href='https://twitter.com' target='_blank' rel='noreferrer noopener' aria-label='Twitter'>T</a>
+            <a class='social-link social-instagram' href='https://instagram.com' target='_blank' rel='noreferrer noopener' aria-label='Instagram'>IG</a>
+        </div>
+    </div>
+</div>
+
+<div id="order-limit-modal" class="order-limit-modal hidden">
+    <div class="order-limit-box">
+        <h2>Превышен лимит заказа</h2>
+        <p class="order-limit-text">Максимум на эту категорию.</p>
+        <button id="order-limit-close" class="header-button" type="button">Понятно</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const currentUser = (() => {
+        try {
+            return JSON.parse(localStorage.getItem('currentUser') || 'null');
+        } catch (e) {
+            return null;
+        }
+    })();
+    const guestMode = !currentUser;
+
+    const staffLink = document.querySelector('.staff-link');
+    if (staffLink && (!currentUser || currentUser.role !== 'staff')) {
+        staffLink.style.display = 'none';
+    }
+
+    if (guestMode) {
+        const menuContainer = document.querySelector('.menu-section .container');
+        const menuGrid = document.getElementById('menu-grid');
+        const guestNotice = document.createElement('div');
+        guestNotice.className = 'guest-notice';
+        guestNotice.textContent = 'Вы просматриваете сайт в гостевом режиме. Заказы, бронирование и персональные функции доступны после входа или регистрации.';
+        menuContainer.insertBefore(guestNotice, menuGrid);
+    }
+
+    const menuData = {
+        food: [
+            { name: 'Паста Карбонара', description: 'Классическая паста с мягким сливочным соусом и беконом.', ingredients: 'спагетти, бекон, яйцо, пармезан, сливки', prices: { small: 320, medium: 430, large: 540 }, image: 'food1.png' },
+            { name: 'Пицца Маргарита', description: 'Тонкая лепёшка с томатным соусом, моцареллой и базиликом.', ingredients: 'тесто, томатный соус, моцарелла, базилик, оливковое масло', prices: { small: 250, medium: 390, large: 520 }, image: 'food2.png' },
+            { name: 'Минестра ди фарро', description: 'Сытный суп из перловки и овощей', ingredients: 'перловка, морковь, томаты, сельдерей, зелень', prices: { small: 240, medium: 310, large: 380 }, image: 'food3.png' },
+            { name: 'Кальцоне с ветчиной', description: 'Запечённый пирог с ветчиной и сыром.', ingredients: 'тесто, ветчина, моцарелла, томаты, базилик', prices: { small: 290, medium: 380, large: 470 }, image: 'food4.png' }
+        ],
+        drinks: [
+            { name: 'Капучино', description: 'Кофе с молочной пеной и корицей.', ingredients: 'эспрессо, молоко, корица', prices: { small: 180, medium: 220, large: 260 }, image: 'drink1.png' },
+            { name: 'Латте', description: 'Нежный кофе с большим количеством молока.', ingredients: 'эспрессо, молоко, молочная пена', prices: { small: 190, medium: 230, large: 270 }, image: 'drink2.png' },
+            { name: 'Мохито', description: 'Освежающий напиток с мятой и лаймом.', ingredients: 'мята, лайм, сахар, сода, ром', prices: { small: 240, medium: 300, large: 360 }, image: 'drink3.png' },
+            { name: 'Сангрия', description: 'Фруктовый напиток на красном вине.', ingredients: 'красное вино, апельсины, яблоки, корица', prices: { small: 280, medium: 340, large: 420 }, image: 'drink4.png' }
+        ],
+        snacks: [
+            { name: 'Тосты с рикоттой', description: 'Легкие тосты с кремовой рикоттой.', ingredients: 'хлеб, рикотта, мед, орехи', price: 230, weight: '140 г', image: 'snack1.png' },
+            { name: 'Сырные шарики', description: 'Хрустящие шарики из сыра с соусом.', ingredients: 'сыр, мука, яйцо, панировка, соус', price: 260, weight: '120 г', image: 'snack2.png' },
+            { name: 'Острая колбаса', description: 'Аперитивная колбаса с пряностями.', ingredients: 'салями, перец, чеснок, специи', price: 280, weight: '110 г', image: 'snack3.png' },
+            { name: 'Салат из тунца', description: 'Свежий салат с тунцом и овощами.', ingredients: 'тунец, огурцы, помидоры, салат, оливковое масло', price: 270, weight: '150 г', image: 'snack4.png' }
+        ]
+    };
+
+    const storedSnackMenu = (() => {
+        try { return JSON.parse(localStorage.getItem('staffSnackMenu') || 'null'); } catch (e) { return null; }
+    })();
+    if (storedSnackMenu && Array.isArray(storedSnackMenu) && storedSnackMenu.length) {
+        menuData.snacks = storedSnackMenu;
+    }
+
+    const menuGrid = document.getElementById('menu-grid');
+    const filterButtons = document.querySelectorAll('.menu-filter');
+    const hoverLinks = document.querySelectorAll('.menu-hover-link');
+    const nav = document.querySelector('.nav');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+
+    function getCart() {
+        try { return JSON.parse(localStorage.getItem('cart') || '{"items":[]}'); }
+        catch (e) { return { items: [] }; }
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    function getCategoryForName(name) {
+        const normalized = (name || '').trim().toLowerCase();
+        for (const category of ['food', 'drinks', 'snacks']) {
+            const items = menuData[category] || [];
+            if (items.some(item => item.name.trim().toLowerCase() === normalized)) {
+                return category;
+            }
+        }
+        return null;
+    }
+
+    function getCartCategoryCounts(cart) {
+        const counts = { food: 0, drinks: 0, snacks: 0 };
+        (cart.items || []).forEach(item => {
+            const category = item.category || getCategoryForName(item.name);
+            if (category && counts[category] !== undefined) {
+                counts[category] += item.qty || 0;
+            }
+        });
+        return counts;
+    }
+
+    function showOrderLimitModal(text) {
+        let modal = document.getElementById('order-limit-modal');
+        if (!modal) return;
+        modal.querySelector('.order-limit-text').textContent = text;
+        modal.classList.remove('hidden');
+    }
+
+    function closeOrderLimitModal() {
+        const modal = document.getElementById('order-limit-modal');
+        if (!modal) return;
+        modal.classList.add('hidden');
+    }
+
+    function checkOrderLimit(cart, category, qtyToAdd) {
+        const counts = getCartCategoryCounts(cart);
+        const limits = { food: 20, drinks: 20, snacks: 20 };
+        const limit = limits[category];
+        if (!limit) return false;
+        return counts[category] + qtyToAdd > limit;
+    }
+
+    function updateCartCount() {
+        const el = document.querySelector('.cart-count');
+        if (!el) return;
+        try {
+            const cart = getCart();
+            const count = cart.items.reduce((sum, item) => sum + (item.qty || 0), 0);
+            el.textContent = count;
+            el.classList.toggle('active', count > 0);
+        } catch (e) {
+            el.textContent = '0';
+            el.classList.remove('active');
+        }
+    }
+
+    function attachMenuControls() {
+        const cards = document.querySelectorAll('.menu-card');
+        cards.forEach(card => {
+            const existingControls = card.querySelector('.menu-controls');
+            if (existingControls) return;
+
+            const portionButtons = Array.from(card.querySelectorAll('.portion-btn'));
+            let selectedPrice = portionButtons.reduce((result, btn) => btn.dataset.size === 'medium' ? Number(btn.dataset.price) : result, 0);
+            if (!selectedPrice && portionButtons.length) {
+                selectedPrice = Number(portionButtons[0].dataset.price) || 0;
+            }
+
+            const controls = document.createElement('div');
+            controls.className = 'menu-controls';
+
+            const priceDisplay = document.createElement('div');
+            priceDisplay.className = 'menu-card-price';
+            priceDisplay.textContent = selectedPrice + ' ₽';
+
+            const minus = document.createElement('button');
+            minus.className = 'qty-btn minus';
+            minus.type = 'button';
+            minus.textContent = '-';
+
+            const qty = document.createElement('span');
+            qty.className = 'qty-display';
+            qty.textContent = '0';
+
+            const plus = document.createElement('button');
+            plus.className = 'qty-btn plus';
+            plus.type = 'button';
+            plus.textContent = '+';
+
+            const total = document.createElement('div');
+            total.className = 'menu-total';
+            total.textContent = 'Сумма: 0 ₽';
+
+            controls.appendChild(priceDisplay);
+            controls.appendChild(minus);
+            controls.appendChild(qty);
+            controls.appendChild(plus);
+            controls.appendChild(total);
+
+            card.appendChild(controls);
+
+            let count = 0;
+
+            function update() {
+                qty.textContent = String(count);
+                total.textContent = 'Сумма: ' + (selectedPrice * count) + ' ₽';
+            }
+
+            function setSelectedSize(button) {
+                portionButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+                selectedPrice = Number(button.dataset.price) || selectedPrice;
+                priceDisplay.textContent = selectedPrice + ' ₽';
+                update();
+            }
+
+            portionButtons.forEach(btn => {
+                btn.addEventListener('click', () => setSelectedSize(btn));
+            });
+
+            const defaultButton = portionButtons.find(btn => btn.dataset.size === 'medium') || portionButtons[0];
+            if (defaultButton) {
+                setSelectedSize(defaultButton);
+            }
+
+            minus.addEventListener('click', () => {
+                if (count > 0) count -= 1;
+                update();
+            });
+
+            plus.addEventListener('click', () => {
+                count += 1;
+                update();
+            });
+
+            const cartLink = document.createElement('button');
+            cartLink.className = 'cart-link-btn';
+            cartLink.type = 'button';
+            cartLink.title = 'Перейти в корзину';
+            cartLink.innerHTML = '🛒';
+            cartLink.addEventListener('click', () => {
+                if (guestMode) {
+                    alert('Только зарегистрированные пользователи могут попасть в корзину. Войдите или зарегистрируйтесь.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                window.location.href = 'cart.html';
+            });
+
+            const orderBtn = document.createElement('button');
+            orderBtn.className = 'order-btn';
+            orderBtn.type = 'button';
+
+            const actionWrap = document.createElement('div');
+            actionWrap.className = 'order-actions';
+            actionWrap.appendChild(cartLink);
+            actionWrap.appendChild(orderBtn);
+            card.appendChild(actionWrap);
+
+            function setOrderButtonText(state) {
+                orderBtn.innerHTML = `<span class="order-icon">🛒</span> ${state}`;
+            }
+
+            if (guestMode) {
+                orderBtn.textContent = 'Только для зарегистрированных';
+                orderBtn.disabled = true;
+                orderBtn.title = 'Войдите или зарегистрируйтесь, чтобы заказать';
+                cartLink.disabled = true;
+                cartLink.classList.add('disabled-cart-link');
+                cartLink.title = 'Войдите или зарегистрируйтесь, чтобы перейти в корзину';
+            } else {
+                setOrderButtonText('Заказать');
+                orderBtn.addEventListener('click', () => {
+                    const name = (card.querySelector('.menu-card-name')?.textContent || '').trim();
+                    const qtyVal = count > 0 ? count : 1;
+                    const cart = getCart();
+                    const itemCategory = getCategoryForName(name) || 'food';
+                    if (checkOrderLimit(cart, itemCategory, qtyVal)) {
+                        showOrderLimitModal(`Превышен лимит для категории ${itemCategory === 'food' ? 'основных блюд' : itemCategory === 'drinks' ? 'напитков' : 'закусок'}. Максимум: ${itemCategory === 'food' ? 20 : itemCategory === 'drinks' ? 20 : 20}.`);
+                        return;
+                    }
+                    const existing = cart.items.find(item => item.name === name && item.price === selectedPrice);
+                    if (existing) {
+                        existing.qty += qtyVal;
+                    } else {
+                        cart.items.push({ name, price: selectedPrice, qty: qtyVal, category: itemCategory });
+                    }
+                    saveCart(cart);
+                    count = 0;
+                    update();
+                    setOrderButtonText('Добавлено');
+                    setTimeout(() => setOrderButtonText('Заказать'), 900);
+                });
+            }
+        });
+    }
+
+    function renderMenu(category) {
+        const items = menuData[category] || [];
+        if (category === 'snacks') {
+            menuGrid.innerHTML = items.map(item => `
+                <article class="menu-card menu-card-snacks">
+                    <img class="menu-card-image" src="${item.image}" alt="${item.name}" onerror="this.src='card.png'" />
+                    <div class="menu-card-header">
+                        <h3 class="menu-card-name">${item.name}</h3>
+                        <span class="menu-card-tag">Закуска</span>
+                    </div>
+                    <p class="menu-card-desc">${item.description}</p>
+                    <p class="menu-card-ingredients"><strong>Состав:</strong> ${item.ingredients}</p>
+                    <p class="snacks-meta">Вес: ${item.weight} · Цена: ${item.price} ₽</p>
+                    <button class="order-btn add-snack-btn" type="button" data-name="${item.name}" data-price="${item.price}">Добавить в корзину</button>
+                </article>
+            `).join('');
+
+            document.querySelectorAll('.add-snack-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (guestMode) {
+                        alert('Только зарегистрированные пользователи могут заказывать закуски. Войдите или зарегистрируйтесь.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    const name = button.dataset.name;
+                    const price = Number(button.dataset.price);
+                    const cart = getCart();
+                    const itemCategory = 'snacks';
+                    if (checkOrderLimit(cart, itemCategory, 1)) {
+                        showOrderLimitModal('Превышен лимит для категории закусок. Максимум: 20.');
+                        return;
+                    }
+                    const existing = cart.items.find(item => item.name === name && item.price === price);
+                    if (existing) {
+                        existing.qty += 1;
+                    } else {
+                        cart.items.push({ name, price, qty: 1, category: itemCategory });
+                    }
+                    saveCart(cart);
+                    alert(`"${name}" добавлен(а) в корзину.`);
+                });
+            });
+            return;
+        }
+
+        menuGrid.innerHTML = items.map(item => `
+            <article class="menu-card menu-card-${category}">
+                <img class="menu-card-image" src="${item.image}" alt="${item.name}" onerror="this.src='card.png'" />
+                <div class="menu-card-header">
+                    <h3 class="menu-card-name">${item.name}</h3>
+                    <span class="menu-card-tag">${category === 'food' ? 'Основные Блюда' : category === 'drinks' ? 'Напиток' : 'Закуска'}</span>
+                </div>
+                <p class="menu-card-desc">${item.description}</p>
+                <p class="menu-card-ingredients"><strong>Состав:</strong> ${item.ingredients}</p>
+                <div class="price-table">
+                    <button type="button" class="portion-btn" data-size="small" data-price="${item.prices.small}"><strong>Маленькая</strong></button>
+                    <button type="button" class="portion-btn active" data-size="medium" data-price="${item.prices.medium}"><strong>Средняя</strong></button>
+                    <button type="button" class="portion-btn" data-size="large" data-price="${item.prices.large}"><strong>Большая</strong></button>
+                </div>
+            </article>
+        `).join('');
+        attachMenuControls();
+    }
+
+    function setActiveCategory(category) {
+        filterButtons.forEach(button => button.classList.toggle('active', button.dataset.category === category));
+        renderMenu(category);
+    }
+
+    filterButtons.forEach(button => button.addEventListener('click', () => setActiveCategory(button.dataset.category)));
+    hoverLinks.forEach(link => link.addEventListener('mouseenter', () => setActiveCategory(link.dataset.category)));
+    mobileToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // Close mobile menu on nav link click
+    document.querySelectorAll('.nav-item').forEach(link => {
+        link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
+    const orderLimitModal = document.getElementById('order-limit-modal');
+    if (orderLimitModal) {
+        orderLimitModal.addEventListener('click', (event) => {
+            if (event.target === orderLimitModal) {
+                closeOrderLimitModal();
+            }
+        });
+        const closeButton = document.getElementById('order-limit-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', closeOrderLimitModal);
+        }
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeOrderLimitModal();
+            }
+        });
+    }
+
+    // Update auth section
+    const authSection = document.getElementById('auth-section');
+    if (currentUser) {
+        authSection.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="color: #fff; font-weight: 600; font-size: 14px;">Привет, ${currentUser.login}!</span>
+                <button id="logout-btn" class="button button-secondary" style="padding: 10px 16px; font-size: 14px;">Выход</button>
+            </div>
+        `;
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
+    }
+
+    const bookingForm = document.querySelector('.booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (guestMode) {
+                alert('Только зарегистрированные пользователи могут забронировать столик. Войдите или зарегистрируйтесь.');
+                window.location.href = 'login.html';
+                return;
+            }
+            alert('Спасибо! Ваша заявка на бронирование отправлена. Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    }
+
+    setActiveCategory('snacks');
+    updateCartCount();
+});
+</script>
+</html>

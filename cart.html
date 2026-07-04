@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="canonical" href="https://italiansite.example.com/cart.html">
+  <meta property="og:url" content="https://italiansite.example.com/cart.html">
+  <meta property="og:title" content="ItalianSite — Корзина">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <title>Корзина</title>
+</head>
+<body class="cart-page">
+  <div class="container">
+    <div class="cart-header">
+      <h1>Ваша корзина</h1>
+    </div>
+    <div class="cart-content">
+      <div id="cart-root">
+        <!-- table or empty message will be rendered here -->
+      </div>
+      <div class="cart-summary" id="cart-summary-wrapper" style="display:none;">
+        <div class="cart-total-box">
+          <div class="cart-total-label">Итого к оплате:</div>
+          <div class="cart-total-value" id="grand-total">0 ₽</div>
+          <div class="cart-actions">
+            <a href="indexation.html" class="cart-checkout-btn cart-btn-back">← Продолжить покупки</a>
+            <button id="checkout" class="cart-checkout-btn">Оформить заказ</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="payment-section" class="checkout-step">
+        <div class="checkout-card">
+          <h2>Оплата заказа</h2>
+          <p class="checkout-info">Выберите банковскую систему и заполните реквизиты. Сумма включает доставку.</p>
+          <div class="payment-summary">
+            <div>Сумма заказа: <strong id="order-total-value">0 ₽</strong></div>
+            <div>Доставка: <strong id="delivery-fee-value">150 ₽</strong></div>
+            <div class="payment-total">Итого к оплате: <strong id="payment-total-value">0 ₽</strong></div>
+          </div>
+          <form id="payment-form" class="checkout-form">
+            <label>Банковская система
+              <select name="bankSystem" required>
+                <option value="">Выберите систему</option>
+                <option value="mir">Мир</option>
+              </select>
+            </label>
+            <label>Номер карты
+              <input name="cardNumber" type="text" inputmode="numeric" pattern="[0-9\s]{16,19}" placeholder="0000 0000 0000 0000" required>
+            </label>
+            <label>Срок действия
+              <input name="expiry" type="text" placeholder="MM/ГГ" pattern="\d{2}/\d{2}" required>
+            </label>
+            <label>Код CVC
+              <input name="cvc" type="text" inputmode="numeric" pattern="\d{3}" placeholder="123" title="Три цифры на обратной стороне карты" required>
+            </label>
+            <label>Владелец карты
+              <input name="cardHolder" type="text" placeholder="ИМЯ ФАМИЛИЯ" required>
+            </label>
+            <button type="submit" class="cart-checkout-btn">Перейти к доставке</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="delivery-section" class="checkout-step">
+        <div class="checkout-card">
+          <h2>Доставка</h2>
+          <p class="checkout-info">Заполните свои данные: мы передадим их курьеру.</p>
+          <form id="delivery-form" class="checkout-form">
+            <label>Имя
+              <input name="firstName" type="text" required>
+            </label>
+            <label>Фамилия
+              <input name="lastName" type="text" required>
+            </label>
+            <label>Отчество
+              <input name="middleName" type="text" required>
+            </label>
+            <label>Телефон
+              <input name="phone" type="tel" placeholder="+7 (999) 000-00-00" required>
+            </label>
+            <label>Email
+              <input name="email" type="email" placeholder="example@mail.ru" required>
+            </label>
+            <label>Адрес доставки
+              <textarea name="address" placeholder="Улица, дом, квартира" required></textarea>
+            </label>
+            <button type="submit" class="cart-checkout-btn">Подтвердить доставку</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="order-success" class="checkout-step">
+        <div class="checkout-card checkout-success">
+          <h2>Заказ принят</h2>
+          <p>Спасибо! Мы получили данные и скоро передадим заказ курьеру. С вами свяжутся по телефону.</p>
+          <a href="indexation.html" class="cart-checkout-btn">Вернуться к меню</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const deliveryFee = 150;
+    let currentStep = 'cart';
+
+    const currentUser = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
+      } catch (e) {
+        return null;
+      }
+    })();
+
+    const guestMode = !currentUser;
+
+    function getCart() {
+      try {
+        return JSON.parse(localStorage.getItem('cart') || '{"items":[]}');
+      } catch (e) {
+        return { items: [] };
+      }
+    }
+
+    function getCartCategoryCounts(cart) {
+      const counts = { food: 0, drinks: 0, snacks: 0 };
+      (cart.items || []).forEach(item => {
+        const category = item.category || 'food';
+        if (counts[category] !== undefined) {
+          counts[category] += item.qty || 0;
+        }
+      });
+      return counts;
+    }
+
+    function checkOrderLimit(cart, category, qtyToAdd) {
+      const counts = getCartCategoryCounts(cart);
+      const limits = { food: 20, drinks: 5, snacks: 10 };
+      const limit = limits[category];
+      if (!limit) return false;
+      return counts[category] + qtyToAdd > limit;
+    }
+
+    function saveCart(c) {
+      localStorage.setItem('cart', JSON.stringify(c));
+      updateCartCount();
+      if (currentStep === 'cart') render();
+    }
+
+    function updateCartCount() {
+      const el = document.querySelector('.cart-count');
+      if (!el) return;
+      try {
+        const cart = getCart();
+        const count = cart.items.reduce((sum, item) => sum + (item.qty || 0), 0);
+        el.textContent = count;
+        el.classList.toggle('active', count > 0);
+      } catch (e) {
+        el.textContent = '0';
+        el.classList.remove('active');
+      }
+    }
+
+    function formatPrice(n) {
+      return n + ' ₽';
+    }
+
+    function getCartTotal(cart) {
+      return cart.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+    }
+
+    function showStep(step) {
+      currentStep = step;
+      const root = document.getElementById('cart-root');
+      const summaryWrapper = document.getElementById('cart-summary-wrapper');
+      const paymentSection = document.getElementById('payment-section');
+      const deliverySection = document.getElementById('delivery-section');
+      const successSection = document.getElementById('order-success');
+      const cart = getCart();
+
+      root.style.display = step === 'cart' ? 'block' : 'none';
+      summaryWrapper.style.display = step === 'cart' && cart.items.length ? 'flex' : 'none';
+      paymentSection.style.display = step === 'payment' ? 'block' : 'none';
+      deliverySection.style.display = step === 'delivery' ? 'block' : 'none';
+      successSection.style.display = step === 'success' ? 'block' : 'none';
+
+      if (step === 'payment') {
+        updatePaymentSummary(cart);
+      }
+
+      if (step === 'cart') {
+        render();
+      }
+    }
+
+    function updatePaymentSummary(cart) {
+      const total = getCartTotal(cart);
+      const sum = total + deliveryFee;
+      document.getElementById('order-total-value').textContent = formatPrice(total);
+      document.getElementById('delivery-fee-value').textContent = formatPrice(deliveryFee);
+      document.getElementById('payment-total-value').textContent = formatPrice(sum);
+    }
+
+    function render() {
+      const root = document.getElementById('cart-root');
+      const summaryWrapper = document.getElementById('cart-summary-wrapper');
+      const cart = getCart();
+      root.innerHTML = '';
+
+      if (!cart.items || cart.items.length === 0) {
+        root.innerHTML = '<div class="cart-empty">Ваша корзина пуста.<br><a href="indexation.html" style="color: #eb6e34; text-decoration: none; font-weight: 700;">← Вернуться на сайт</a></div>';
+        summaryWrapper.style.display = 'none';
+        return;
+      }
+
+      summaryWrapper.style.display = 'flex';
+
+      const table = document.createElement('table');
+      table.className = 'cart-table';
+
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      const headers = ['Наименование', 'Цена', 'Кол-во', 'Итого', 'Действие'];
+      headers.forEach(h => {
+        const th = document.createElement('th');
+        th.textContent = h;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      let grand = 0;
+
+      cart.items.forEach((it, idx) => {
+        const row = document.createElement('tr');
+
+        const nameCell = document.createElement('td');
+        nameCell.innerHTML = `<div class="cart-item-name">${it.name}</div>`;
+
+        const priceCell = document.createElement('td');
+        priceCell.innerHTML = `<div class="cart-item-price">${formatPrice(it.price)}</div>`;
+
+        const qtyCell = document.createElement('td');
+        qtyCell.innerHTML = `<div class="cart-qty-controls">
+          <button class="qty-btn-small qty-minus" data-idx="${idx}">−</button>
+          <span class="qty-display-small" data-idx="${idx}">${it.qty}</span>
+          <button class="qty-btn-small qty-plus" data-idx="${idx}">+</button>
+        </div>`;
+
+        const totalCell = document.createElement('td');
+        const itemTotal = it.price * it.qty;
+        totalCell.innerHTML = `<div class="cart-item-total">${formatPrice(itemTotal)}</div>`;
+
+        const actionCell = document.createElement('td');
+        actionCell.innerHTML = `<button class="cart-remove-btn remove-item" data-idx="${idx}">Удалить</button>`;
+
+        row.appendChild(nameCell);
+        row.appendChild(priceCell);
+        row.appendChild(qtyCell);
+        row.appendChild(totalCell);
+        row.appendChild(actionCell);
+
+        tbody.appendChild(row);
+        grand += itemTotal;
+      });
+
+      table.appendChild(tbody);
+      root.appendChild(table);
+
+      document.getElementById('grand-total').textContent = formatPrice(grand);
+
+      document.querySelectorAll('.qty-minus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.dataset.idx);
+          if (cart.items[idx].qty > 1) {
+            cart.items[idx].qty -= 1;
+          } else {
+            cart.items.splice(idx, 1);
+          }
+          saveCart(cart);
+        });
+      });
+
+      document.querySelectorAll('.qty-plus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.dataset.idx);
+          const item = cart.items[idx];
+          const category = item.category || 'food';
+          if (checkOrderLimit(cart, category, 1)) {
+            alert(`Превышен лимит для категории ${category === 'food' ? 'основных блюд' : category === 'drinks' ? 'напитков' : 'закусок'}. Максимум: ${category === 'food' ? 20 : category === 'drinks' ? 5 : 10}.`);
+            return;
+          }
+          cart.items[idx].qty += 1;
+          saveCart(cart);
+        });
+      });
+
+      document.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.dataset.idx);
+          cart.items.splice(idx, 1);
+          saveCart(cart);
+        });
+      });
+    }
+
+    const checkoutButton = document.getElementById('checkout');
+    if (guestMode) {
+      checkoutButton.disabled = true;
+      checkoutButton.classList.add('disabled');
+      checkoutButton.title = 'Войдите или зарегистрируйтесь, чтобы оформить заказ';
+    }
+
+    checkoutButton.addEventListener('click', () => {
+      if (!currentUser) {
+        alert('Только зарегистрированные пользователи могут оформить заказ. Войдите или зарегистрируйтесь.');
+        window.location.href = 'login.html';
+        return;
+      }
+      const cart = getCart();
+      if (!cart.items || cart.items.length === 0) return;
+      showStep('payment');
+    });
+
+    document.getElementById('payment-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showStep('delivery');
+    });
+
+    document.getElementById('delivery-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('cart');
+      updateCartCount();
+      showStep('success');
+    });
+
+    window.addEventListener('storage', () => {
+      updateCartCount();
+      if (currentStep === 'cart') render();
+    });
+
+    updateCartCount();
+    render();
+  </script>
+</body>
+</html>
+
